@@ -36,8 +36,13 @@ class PagoRealizadoController extends Controller
      */
     public function index()
     {
-        $condominio = Auth::user()->condominio->id;
-        $pagosRealizados = PagoRealizado::where('condominio_id','=',$condominio)->get();
+        if(Auth::user()->is("Administrador")){
+            $pagosRealizados = PagoRealizado::All();
+        }else{
+            $condominio = Auth::user()->condominio->id;
+            $pagosRealizados = PagoRealizado::where('condominio_id','=',$condominio)->get();
+        }
+
         return view('pagosRealizados.index', compact('pagosRealizados'));
     }
 
@@ -52,7 +57,6 @@ class PagoRealizadoController extends Controller
     {
         $rules = [
             'concepto' => 'required|min:5',
-            'cantidad' => 'required|digits_between:1,6',
             'fechaDePago' => 'required|date_format:d/m/Y',
             'pagosPendientes' => 'required',
             'evidencia' => 'required|max:10000|mimes:jpeg,png',
@@ -60,7 +64,6 @@ class PagoRealizadoController extends Controller
 
         $input = Input::only(
             'concepto',
-            'cantidad',
             'fechaDePago',
             'pagosPendientes',
             'evidencia'

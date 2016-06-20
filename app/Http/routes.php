@@ -28,6 +28,7 @@ Route::get('register', 'Auth\AuthController@registration');
 Route::get('pagos/index', 'PagosController@index');
 Route::get('pagos/create', 'PagosController@create');
 Route::post('pagos/store', 'PagosController@store');
+Route::get('pagos/cantidad', 'PagosController@cantidadPago');
 Route::get('usuarios/index', 'UsuarioController@index');
 Route::get('usuarios/create', 'UsuarioController@create');
 Route::post('usuarios/store', 'UsuarioController@store');

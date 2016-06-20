@@ -66,13 +66,16 @@
                             </a>
 
                             <ul class="dropdown-menu" role="menu">
+                                @if (Auth::user()->is("Condomino"))
                                 <li><a href="{{ url('/pagosPendientes/index') }}">Pagos pendientes</a></li>
+                                @endif
                                 <li><a href="{{ url('/pagosRealizados/index') }}">Pagos realizados</a></li>
 
                             </ul>
                         </li>
-
+                        @if (Auth::user()->is("Condomino"))
                         <li><a href="{{ url('/pagosRealizados/create') }}">Realizar pagos</a></li>
+                        @endif
                     @endif
                 </ul>
 
@@ -80,7 +83,7 @@
                 <ul class="nav navbar-nav navbar-right">
                     <!-- Authentication Links -->
                     @if (Auth::guest())
-                        <li><a href="{{ url('/login') }}">Login</a></li>
+                        <li><a href="{{ url('/login') }}">Entrar</a></li>
                     @else
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
@@ -102,6 +105,7 @@
         <script src="../js/datepicker-es.js"></script>
         <script src="../js/util.js"></script>
         <script src="../js/lytebox.js"></script>
+        <script src="../js/chosen.jquery.min.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
     {{-- <script src="{{ elixir('js/app.js') }}"></script> --}}
         @yield('content')

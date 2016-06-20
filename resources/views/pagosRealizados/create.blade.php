@@ -7,6 +7,7 @@
     {{--<script src="../js/jquery.inputmask.js"></script>--}}
 
     <link rel="stylesheet" href="../css/jquery-ui.min.css">
+    <link rel="stylesheet" href="../css/chosen.min.css">
     @if(Session::has('success'))
         <div class="alert alert-success">{{ Session('success') }}</div>
     @endif
@@ -32,18 +33,6 @@
                             </div>
                         </div>
 
-                        <div class="form-group{{ $errors->has('cantidad') ? ' has-error' : '' }}">
-                            {!! Form::label('cantidad', 'Cantidad de pago $',['class'=>'col-md-4 control-label'])!!}
-                            <div class="col-md-6">
-                                {!! Form::text('cantidad', null,['class'=>'form-control', 'value'=>"{{ old('cantidad') }}"])!!}
-                                @if ($errors->has('cantidad'))
-                                    <span class="help-block">
-                                       <strong>{{ $errors->first('cantidad') }}</strong>
-                                   </span>
-                                @endif
-                            </div>
-                        </div>
-
                         <div class="form-group{{ $errors->has('fechaDePago') ? ' has-error' : '' }}">
                             {!! Form::label('fechaDePago', 'Fecha de pago',['class'=>'col-md-4 control-label'])!!}
                             <div class="col-md-6">
@@ -60,7 +49,7 @@
                         {!! Form::label('pagosPendientes', 'Pagos pendientes',['class'=>'col-md-4 control-label'])!!}
                         <div class="col-md-6">
                         {!! Form::select('pagosPendientes', $pagosPendientes, null,
-                        array('multiple'=>'multiple','name'=>'pagosPendientes[]','class' => 'form-control')) !!}
+                        array('multiple'=>'multiple','name'=>'pagosPendientes[]','class' => 'chosen-select, form-control')) !!}
                         @if ($errors->has('pagosPendientes'))
                         <span class="help-block">
                         <strong>{{ $errors->first('pagosPendientes') }}</strong>
@@ -68,6 +57,19 @@
                         @endif
                         </div>
                         </div>
+
+                        <div class="form-group{{ $errors->has('cantidad') ? ' has-error' : '' }}">
+                            {!! Form::label('cantidad', 'Cantidad pagada $',['class'=>'col-md-4 control-label'])!!}
+                            <div class="col-md-6">
+                                {!! Form::text('cantidad', null,['class'=>'form-control', 'value'=>"{{ old('cantidad') }}", 'readonly'])!!}
+                                @if ($errors->has('cantidad'))
+                                    <span class="help-block">
+                                       <strong>{{ $errors->first('cantidad') }}</strong>
+                                   </span>
+                                @endif
+                            </div>
+                        </div>
+
 
                         <div class="form-group{{ $errors->has('evidencia') ? ' has-error' : '' }}">
                             {!! Form::label('evidencia', 'Recibo de pago',['class'=>'col-md-4 control-label'])!!}

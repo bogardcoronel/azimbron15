@@ -39,6 +39,11 @@ class PagosController extends Controller
         return view('pagos.create');
     }
 
+    public function cantidadPago(Request $request){
+        $pago = Pagos::find($request->input("idPago"));
+        return response()->json(['cantidad'=>$pago->cantidad]);
+    }
+
     public function store(Request $request)
     {
         $rules = [
@@ -72,4 +77,6 @@ class PagosController extends Controller
 
         return view('pagos.create');
     }
+
+
 }

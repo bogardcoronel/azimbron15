@@ -29,4 +29,54 @@ $(function() {
             }, 0);
         }
     });
+
+    $("#pagosPendientes").chosen({
+        max_selected_options: 15,
+        no_results_text: "No se encontraron resultados",
+        placeholder_text_single: "Selecione una opción",
+        placeholder_text_multiple: "Selecione las opciones..."});
+
+    $("#pagosPendientes").on('change', function (event,params) {
+        var cantidad;
+        var total = $("#cantidad").val();
+        if(params.selected) {
+            cantidad = totalConcepto(params.selected);
+            total= sumar(cantidad,total);
+        }else{
+            cantidad = totalConcepto(params.deselected);
+            total= restar(total,cantidad);
+        }
+
+        $("#cantidad").val(total);
+    });
+
+    function totalConcepto(idPago) {
+        var cantidad=0;
+        $.ajax({
+            url: "/pagos/cantidad",
+            dataType: 'json',
+            data: {idPago: idPago},
+            type: 'GET',
+            cache: false,
+            async: false,
+            success: function (data) {
+                cantidad =data.cantidad;
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+               return null;
+            }
+        });
+        return cantidad;
+    }
+    
+    function sumar(val1,val2) {
+        return  Math.floor(val1) +  Math.floor(val2);
+    }
+
+    function restar(val1,val2) {
+        if(val1<val2){
+            return 0;
+        }
+        return  Math.floor(val1) -  Math.floor(val2);
+    }
 });

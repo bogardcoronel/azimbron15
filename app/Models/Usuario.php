@@ -30,5 +30,18 @@ class Usuario extends Authenticatable
         return $this->belongsToMany('azimbron15\Models\Role', 'usuarios_roles', 'usuario_id', 'role_id');
     }
 
+    public function is($roleName)
+    {
+        foreach ($this->roles as $roles)
+        {
+            if ($roles->name == $roleName)
+            {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
     public $timestamps = false;
 }
