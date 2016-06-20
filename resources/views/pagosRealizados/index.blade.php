@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-
+    <link rel="stylesheet" href="../css/lytebox.css">
     <div class="container">
         <h1>Pagos realizados</h1>
         <div class="row">
@@ -11,6 +11,9 @@
                     <thead>
                     <th>
                         Departamento
+                    </th>
+                    <th>
+                        Pago(s) realizado(s)
                     </th>
                     <th>
                         Concepto
@@ -34,12 +37,20 @@
                     @foreach($pagosRealizados as $pago)
                         <tbody>
                         <td>{{$pago->condominio->departamento}}</td>
+                        <td>
+                            <ul>
+                        @foreach($pago->pagosConceptos as $pagoConcepto)
+                        <li>{{$pagoConcepto->concepto}}
+                        </li>
+                        @endforeach
+                            </ul>
+                        </td>
                         <td>{{$pago->descripcion_pago}}</td>
                         <td>{{$pago->cantidad_pagada}}</td>
                         <td>{{Carbon\Carbon::parse($pago->fecha_reporte_pago)->format('d/m/Y')}}</td>
                         <td>{{Carbon\Carbon::parse($pago->fecha_de_pago)->format('d/m/Y')}}</td>
                         <td>
-                            <img alt="{{$pago->nombre_archivo}}" src="/pagosRealizados/{{$pago->id}}/image">‌​
+                            <a href="/pagosRealizados/{{$pago->id}}/image" class="lytebox" data-title="{{$pago->descripcion_pago}}"><i class="fa fa-camera"></i></a>
                         </td>
                         <td>{{$pago->estatus->estatus_descripcion}}</td>
                         </tbody>
