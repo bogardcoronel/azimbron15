@@ -58,7 +58,9 @@
    <td>{{Date::parse($pago->fecha_reporte_pago)->format('l j F Y')}}</td>
    <td>{{Date::parse($pago->fecha_de_pago)->format('l j F Y')}}</td>
    <td>
-       <a href="/pagosRealizados/{{$pago->id}}/image" class="lytebox" data-title="{{$pago->descripcion_pago}}"><i class="fa fa-camera"></i></a>
+       @foreach($pago->evidencias as $evidencia)
+       <a href="/evidencia/{{$evidencia->id}}/image" class="lytebox" data-title="{{$evidencia->nombre_archivo}}"><i class="fa fa-camera"></i></a>
+       @endforeach
    </td>
 
 

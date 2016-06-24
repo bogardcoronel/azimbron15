@@ -20,7 +20,7 @@ class PagoRealizado extends Model
 
     public function evidencias()
     {
-        return $this->belongsToMany('azimbron15\Models\Evidencia', 'evidencia', 'pago_realizado_id');
+        return $this->hasMany('azimbron15\Models\Evidencia');
     }
     
     public function pagosConceptos(){

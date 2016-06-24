@@ -36,7 +36,7 @@ Route::get('pagosPendientes/index', 'PagoPendienteController@index');
 Route::get('pagosRealizados/index', 'PagoRealizadoController@index');
 Route::get('pagosRealizados/create', 'PagoRealizadoController@create');
 Route::post('pagosRealizados/store', 'PagoRealizadoController@store');
-Route::get('pagosRealizados/{id}/image','PagoRealizadoController@getImageEvidencia');
+Route::get('evidencia/{id}/image','EvidenciaController@getImageEvidencia');
 
 Route::get('sendemail', function () {
 

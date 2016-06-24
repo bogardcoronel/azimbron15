@@ -15,7 +15,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Validator;
 
 class PagoRealizadoController extends Controller
@@ -93,7 +92,6 @@ class PagoRealizadoController extends Controller
             $pagoRealizado->condominio_id = $condominio;
             $pagoRealizado->estatus_id = $estatus->id;
             $pagoRealizado->created_at = Carbon::now();
-            $pagoRealizado->pagosConceptos()->attach($pagosReportadosInstances);
             $pagoRealizado->save();
 
             $evidencia = new Evidencia();
@@ -103,6 +101,8 @@ class PagoRealizadoController extends Controller
             $evidencia->tamanho_archivo = $file->getSize();
             $evidencia->pagoRealizado()->associate($pagoRealizado);
             $evidencia->save();
+
+            $pagoRealizado->pagosConceptos()->sync($pagosReportadosInstances);
 
 
 
@@ -116,12 +116,5 @@ class PagoRealizadoController extends Controller
         }else{
             return Redirect::back()->withInput()->withErrors($validator);
         }
-    }
-    
-    public function getImageEvidencia($id){
-        $pagoRealizado = PagoRealizado::find($id);
-        $response = Response::make(base64_decode($pagoRealizado->evidencia), 200);
-        $response->header('Content-Type', $pagoRealizado->mime);
-        return $response;
     }
 }
