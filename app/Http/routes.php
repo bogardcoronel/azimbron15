@@ -37,3 +37,21 @@ Route::get('pagosRealizados/index', 'PagoRealizadoController@index');
 Route::get('pagosRealizados/create', 'PagoRealizadoController@create');
 Route::post('pagosRealizados/store', 'PagoRealizadoController@store');
 Route::get('pagosRealizados/{id}/image','PagoRealizadoController@getImageEvidencia');
+
+Route::get('sendemail', function () {
+
+    $data = array(
+        'name' => "Learning Laravel",
+    );
+
+    Mail::send('emails.welcome', $data, function ($message) {
+
+        $message->from('no-reply@azimbron.com', 'Learning Laravel');
+
+        $message->to('yourEmail@domain.com')->subject('Learning Laravel test email');
+
+    });
+
+    return "Your email has been sent successfully";
+
+});

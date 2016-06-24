@@ -2,7 +2,9 @@
 
 namespace azimbron15\Http\Controllers;
 
+use azimbron15\Events\PagoRealizadoEvent;
 use azimbron15\Models\Estatus;
+use azimbron15\Models\Evidencia;
 use azimbron15\Models\PagoRealizado;
 use azimbron15\Models\Pagos;
 use Carbon\Carbon;
@@ -10,6 +12,7 @@ use Illuminate\Http\Request;
 
 use azimbron15\Http\Requests;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Response;
@@ -56,14 +59,12 @@ class PagoRealizadoController extends Controller
     public function store(Request $request)
     {
         $rules = [
-            'concepto' => 'required|min:5',
             'fechaDePago' => 'required|date_format:d/m/Y',
             'pagosPendientes' => 'required',
             'evidencia' => 'required|max:10000|mimes:jpeg,png',
         ];
 
         $input = Input::only(
-            'concepto',
             'fechaDePago',
             'pagosPendientes',
             'evidencia'
@@ -80,38 +81,36 @@ class PagoRealizadoController extends Controller
         $condominio = Auth::user()->condominio->id;
         $estatus = Estatus::find(2);
 
-        $pagoRealizado = new PagoRealizado();
-        $pagoRealizado->descripcion_pago = $request->input('concepto');
-        $pagoRealizado->cantidad_pagada = $request->input('cantidad');
-        $pagoRealizado->fecha_reporte_pago = Carbon::now();
-        $pagoRealizado->fecha_de_pago = Carbon::createFromFormat('d/m/Y', $request->input('fechaDePago'));
-        $pagoRealizado->condominio_id = $condominio;
-        $pagoRealizado->estatus_id = $estatus->id;
-        $pagoRealizado->evidencia = $request->input('evidencia');
-        $pagoRealizado->created_at = Carbon::now();
-
         if($request->hasFile('evidencia')) {
             $file = $request->file('evidencia');
+            $pagosReportadosId = $request->input('pagosPendientes');
+            $pagosReportadosInstances = Pagos::whereIn('id', $pagosReportadosId)->get();
 
-            $pagosReportados = $request->input('pagosPendientes');
-            foreach ($pagosReportados as $pagoReportado) {
-                $pagos = Pagos::find($pagoReportado);
-                $pagos->pagosConceptos()->firstOrCreate([
-                    'descripcion_pago' => $request->input('concepto'),
-                    'cantidad_pagada' => $request->input('cantidad'),
-                    'fecha_reporte_pago' => Carbon::now(),
-                    'fecha_de_pago' => Carbon::createFromFormat('d/m/Y', $request->input('fechaDePago')),
-                    'condominio_id' => $condominio,
-                    'estatus_id' => $estatus->id,
-                    'evidencia' => base64_encode(file_get_contents($file->getRealPath())),
-                    'nombre_archivo' => $file->getClientOriginalName(),
-                    'mime' => $file->getMimeType(),
-                    'tamanho_archivo' => $file->getSize(),
-                    'created_at' => Carbon::now()
-                ]);
-            }
+            $pagoRealizado = new PagoRealizado();
+            $pagoRealizado->cantidad_pagada = $request->input('cantidad');
+            $pagoRealizado->fecha_reporte_pago = Carbon::now();
+            $pagoRealizado->fecha_de_pago = Carbon::createFromFormat('d/m/Y', $request->input('fechaDePago'));
+            $pagoRealizado->condominio_id = $condominio;
+            $pagoRealizado->estatus_id = $estatus->id;
+            $pagoRealizado->created_at = Carbon::now();
+            $pagoRealizado->pagosConceptos()->attach($pagosReportadosInstances);
+            $pagoRealizado->save();
+
+            $evidencia = new Evidencia();
+            $evidencia->evidencia = base64_encode(file_get_contents($file->getRealPath()));
+            $evidencia->nombre_archivo = $file->getClientOriginalName();
+            $evidencia->mime = $file->getMimeType();
+            $evidencia->tamanho_archivo = $file->getSize();
+            $evidencia->pagoRealizado()->associate($pagoRealizado);
+            $evidencia->save();
+
+
+
 
             \Session::flash('success', 'Pago realizado exitosamente.');
+
+            //Dispara un evento al realizar el pago
+            Event::fire(new PagoRealizadoEvent($pagoRealizado));
 
             return Redirect::to('pagosRealizados/create');
         }else{

@@ -20,19 +20,6 @@
                         {!! Form::open(array('url' => '/pagosRealizados/store', 'method' => 'POST', 'class'=>'form-horizontal', 'files'=>true)) !!}
                         {{ csrf_field() }}
 
-                        <div class="form-group{{ $errors->has('concepto') ? ' has-error' : '' }}">
-                            {!! Form::label('concepto', 'Concepto de pago',['class'=>'col-md-4 control-label'])!!}
-                            <div class="col-md-6">
-                                {!! Form::textarea('concepto', null,['class'=>'form-control', 'value'=>"{{ old('concepto') }}",
-                                'rows'=>"2", 'cols'=>"50"])!!}
-                                @if ($errors->has('concepto'))
-                                    <span class="help-block">
-                                       <strong>{{ $errors->first('concepto') }}</strong>
-                                   </span>
-                                @endif
-                            </div>
-                        </div>
-
                         <div class="form-group{{ $errors->has('fechaDePago') ? ' has-error' : '' }}">
                             {!! Form::label('fechaDePago', 'Fecha de pago',['class'=>'col-md-4 control-label'])!!}
                             <div class="col-md-6">

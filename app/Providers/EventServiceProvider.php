@@ -13,8 +13,8 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
-        'azimbron15\Events\SomeEvent' => [
-            'azimbron15\Listeners\EventListener',
+        'azimbron15\Events\PagoRealizadoEvent' => [
+            'azimbron15\Listeners\NotificarAdminPagoRealizado',
         ],
     ];
 
