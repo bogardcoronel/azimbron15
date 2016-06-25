@@ -17,9 +17,7 @@
                     <th>
                         Pago(s) realizado(s)
                     </th>
-                    <th>
-                        Concepto
-                    </th>
+
                     <th>
                         Cantidad pagada
                     </th>
@@ -41,6 +39,9 @@
                     <th>
                             Estatus del pago
                     </th>
+                    <th>
+                        Concepto
+                    </th>
 </thead>
 @foreach($pagosRealizados as $pago)
    <tbody>
@@ -53,7 +54,6 @@
    @endforeach
        </ul>
    </td>
-   <td>{{$pago->descripcion_pago}}</td>
    <td>{{$pago->cantidad_pagada}}</td>
    <td>{{Date::parse($pago->fecha_reporte_pago)->format('l j F Y')}}</td>
    <td>{{Date::parse($pago->fecha_de_pago)->format('l j F Y')}}</td>
@@ -82,6 +82,7 @@
            <td>
    <a href="#">{{$pago->estatus->estatus_descripcion}}</a>
    </td>
+   <td>{{$pago->comentarios}}</td>
 
 
 </tbody>

@@ -78,7 +78,7 @@ class PagoRealizadoController extends Controller
 
 
         $condominio = Auth::user()->condominio->id;
-        $estatus = Estatus::find(2);
+        $estatus = Estatus::find(2); // Se coloca Estatus en revisión al hacer un pago
 
         if($request->hasFile('evidencia')) {
             $file = $request->file('evidencia');

@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class PagoRealizado extends Model
 {
     protected $table = 'pagos_realizados';
-    protected $fillable = array('descripcion_pago', 'cantidad_pagada', 'fecha_reporte_pago', 'fecha_de_pago', 'condominio_id',
+    protected $fillable = array('comentarios', 'cantidad_pagada', 'fecha_reporte_pago', 'fecha_de_pago', 'condominio_id',
         'estatus_id','created_at', 'updated_at');
 
     public function condominio(){
