@@ -18,8 +18,8 @@ class CreateEvidenciaTable extends Migration
             $table->string('mime');
             $table->integer('tamanho_archivo');
             $table->binary('evidencia');
-            $table->string('pago_realizado_id')->unsigned();
-            $table->foreign('pago_realizado_id')->references('id')->on('evidencia')->onUpdate('cascade')->onDelete('cascade');
+            $table->integer('pago_realizado_id')->unsigned();
+            $table->foreign('pago_realizado_id')->references('id')->on('pagos_realizados')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }
