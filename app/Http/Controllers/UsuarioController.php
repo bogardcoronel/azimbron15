@@ -2,6 +2,7 @@
 
 namespace azimbron15\Http\Controllers;
 
+use azimbron15\Events\UsuarioCreadoEvent;
 use azimbron15\Models\Condominio;
 use azimbron15\Models\Role;
 use azimbron15\Models\Usuario;
@@ -61,7 +62,7 @@ class UsuarioController extends Controller
             'created_at' => Carbon::now()
         ]);
 
-
+        UsuarioCreadoEvent::fire(Usuario::where('email', 1)->first());
 
         \Session::flash('success','Usuario creado exitosamente.');
         

@@ -3,29 +3,25 @@
 namespace azimbron15\Events;
 
 use azimbron15\Events\Event;
-use azimbron15\Models\PagoRealizado;
+use azimbron15\Models\Usuario;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 
-class PagoRealizadoEvent extends Event
+class UsuarioCreadoEvent extends Event
 {
     use SerializesModels;
+    public $usuarioCreado;
+    public $contrasenha;
 
-    public $pagoRealizado;
-    public $realPath;
-    public $mimeType;
-    public  $nombreArchivo;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(PagoRealizado $pagoRealizado, $realPath, $mimeType, $nombreArchivo)
+    public function __construct(Usuario $usuarioCreado, $contrasenha)
     {
-        $this->pagoRealizado = $pagoRealizado;
-        $this->realPath = $realPath;
-        $this->mimeType = $mimeType;
-        $this->nombreArchivo = $nombreArchivo;
+        $this->usuarioCreado = $usuarioCreado;
+        $this->contrasenha = $contrasenha;
     }
 
     /**

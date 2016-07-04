@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
+use Jenssegers\Date\Date;
 
 class PagoRealizadoController extends Controller
 {
@@ -110,11 +111,37 @@ class PagoRealizadoController extends Controller
             \Session::flash('success', 'Pago realizado exitosamente.');
 
             //Dispara un evento al realizar el pago
-            Event::fire(new PagoRealizadoEvent($pagoRealizado));
+            Event::fire(new PagoRealizadoEvent($pagoRealizado, $file->getRealPath(),$evidencia->mime, $evidencia->nombre_archivo ));
 
             return Redirect::to('pagosRealizados/create');
         }else{
             return Redirect::back()->withInput()->withErrors($validator);
+        }
+    }
+    
+    public function approve($id){
+        $pagoRealizado = PagoRealizado::find($id);
+        $estatus = Estatus::find(1); //Estatus aprobado
+        $pagoRealizado->estatus_id =$estatus->id;
+        $pagoRealizado->save();
+        \Session::flash('success','El pago del departamento '.$pagoRealizado->condominio->departamento.' con fecha  de pago '.Date::parse($pagoRealizado->fecha_de_pago)->format('l j F Y') .' ha sido aprobado.');
+        return Redirect::to('pagosRealizados/index');
+    }
+
+    public function show($id){
+        if(Auth::user()->is("Administrador")) {
+            $pagoRealizado = PagoRealizado::find($id);
+            return view('pagosRealizados.show', compact('pagoRealizado'));
+        }else if(Auth::user()->is("Condomino")){
+            $condominio = Auth::user()->condominio->id;
+            $pagoRealizado = PagoRealizado::where('condominio_id','=',$condominio)->where('id','=',$id)->first();
+            if($pagoRealizado) {
+                return view('pagosRealizados.show', compact('pagoRealizado'));
+            }else{
+                return abort(403, 'Unauthorized action.');
+            }
+        }else{
+            return abort(403, 'Unauthorized action.');
         }
     }
 }

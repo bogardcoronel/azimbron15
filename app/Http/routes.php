@@ -35,8 +35,13 @@ Route::post('usuarios/store', 'UsuarioController@store');
 Route::get('pagosPendientes/index', 'PagoPendienteController@index');
 Route::get('pagosRealizados/index', 'PagoRealizadoController@index');
 Route::get('pagosRealizados/create', 'PagoRealizadoController@create');
+Route::get('pagosRealizados/{id}/show', 'PagoRealizadoController@show');
 Route::post('pagosRealizados/store', 'PagoRealizadoController@store');
+Route::get('pagosRealizados/{id}/approve', 'PagoRealizadoController@approve');
 Route::get('evidencia/{id}/image','EvidenciaController@getImageEvidencia');
+Route::controllers([
+    'password' => 'Auth\PasswordController',
+]);
 
 Route::get('sendemail', function () {
 
@@ -48,7 +53,7 @@ Route::get('sendemail', function () {
 
         $message->from('no-reply@azimbron.com', 'Learning Laravel');
 
-        $message->to('yourEmail@domain.com')->subject('Learning Laravel test email');
+        $message->to('bogardcoronel@gmail.com')->subject('Learning Laravel test email');
 
     });
 

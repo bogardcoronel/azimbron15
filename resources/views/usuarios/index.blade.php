@@ -17,12 +17,19 @@
                 <th>
                     Departamento
                 </th>
+                <th>
+                    Rol
+                </th>
                 </thead>
                 @foreach($usuarios as $usuario)
                     <tbody>
                     <td>{{$usuario->nombre}}</td>
                     <td>{{$usuario->email}}</td>
                     <td>{{$usuario->condominio->departamento}}</td>
+                    <td> @foreach($usuario->roles as $rol)
+                            {{$rol->name}}
+                        @endforeach
+                    </td>
                     </tbody>
                 @endforeach
             </table>

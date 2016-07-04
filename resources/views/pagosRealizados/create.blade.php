@@ -61,7 +61,7 @@
                         <div class="form-group{{ $errors->has('evidencia') ? ' has-error' : '' }}">
                             {!! Form::label('evidencia', 'Recibo de pago',['class'=>'col-md-4 control-label'])!!}
                             <div class="col-md-6">
-                                {!! Form::file('evidencia', ['class'=>'glyphicon-open-file','value'=>"{{ old('evidencia') }}"])!!}
+                                {!! Form::file('evidencia', ['value'=>"{{ old('evidencia') }}"])!!}
                                 @if ($errors->has('evidencia'))
                                     <span class="help-block">
                                        <strong>{{ $errors->first('evidencia') }}</strong>

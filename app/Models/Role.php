@@ -13,6 +13,6 @@ class Role extends Model
     public $timestamps = false;
 
     public function users(){
-        return $this->belongsToMany('azimbron15\Models\Usuario','usuarios_roles', 'usuario_id', 'role_id');
+        return $this->belongsToMany('azimbron15\Models\Usuario','usuarios_roles', 'role_id', 'usuario_id');
     }
 }

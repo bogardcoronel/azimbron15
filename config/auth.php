@@ -67,7 +67,7 @@ return [
     'providers' => [
         'users' => [
             'driver' => 'eloquent',
-            'model' => App\User::class,
+            'model' => azimbron15\Models\Usuario::class,
         ],
 
         'users_office' => [
@@ -100,19 +100,19 @@ return [
     |
     */
 
-//    'passwords' => [
-//        'users' => [
-//            'provider' => 'users',
-//            'email' => 'auth.emails.password',
-//            'table' => 'contrasenha_resets',
-//            'expire' => 60,
-//        ],
-//    ],
-
-    'password' => [
-        'email' => 'emails.password',
-        'table' => 'password_resets',
-        'expire' => 60,
+    'passwords' => [
+        'users' => [
+            'provider' => 'users_office',
+            'email' => 'auth.emails.password',
+            'table' => 'contrasenha_resets',
+            'expire' => 60,
+        ],
     ],
+
+//    'password' => [
+//        'email' => 'emails.password',
+//        'table' => 'password_resets',
+//        'expire' => 60,
+//    ],
 
 ];

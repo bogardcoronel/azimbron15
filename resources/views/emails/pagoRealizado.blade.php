@@ -35,22 +35,27 @@
 <div id="mail_body" align="center">
     <p align="justify">
         <strong>
-            <h2> Cambio de contraseña del sistema </h2>
+            <h2> Pago realizado por el departamento: {{$deptoPaga}} </h2>
         </strong>
     </p>
     <p align="justify">
-        Usted a solicitado cambiar su contraseña, si no lo ha solicitado haga caso omiso a este correo, de lo contrario siga leyendo.
+        El siguiente pago ha sido realizado por la contidad total de: <br/>
+        <strong>${{$cantidad_pagada}} MXN </strong> <br/>
+        Registrado con fecha de pago: <br/>
+        <strong> {{Date::parse($fecha_de_pago)->format('l j F Y')}}</strong>
+    </p>
+    <p>
+        Los conceptos de pago son los siguientes:
     </p>
 
     <p align="justify">
-        De click en el siguiente enlace para cambiar su contraseña: <a href="{{ $link = url('password/reset', $token).'?email='.urlencode($user->getEmailForPasswordReset()) }}"> "Tu espacio &Aacute;ngel Zimbr&oacute;n" cambio de contraseña </a>
+        {!! $pagos !!}
     </p>
 
     <p align="justify">
-        <strong>Atentamente</strong>
-        <br/>
-        <strong><a>Administraci&oacute;n "Tu espacio &Aacute;ngel Zimbr&oacute;n".</a></strong>
+        Para aprobar o solicitar aclaración del pago, es necesario acceder al sistema <strong><a href="http://www.angelzimbron15.esy.es/pagosRealizados/{{$id}}/show">"Tu espacio &Aacute;ngel Zimbr&oacute;n".</a></strong>.
     </p>
+
 </div>
 <div>
     <img class="mail_footer" src="{{ $message->embed(public_path().'/images//email_footer.png') }}"/>

@@ -35,21 +35,34 @@
 <div id="mail_body" align="center">
     <p align="justify">
         <strong>
-            <h2> Cambio de contraseña del sistema </h2>
+            <h2> Estimado usuario: {{$nombre}} </h2>
         </strong>
     </p>
     <p align="justify">
-        Usted a solicitado cambiar su contraseña, si no lo ha solicitado haga caso omiso a este correo, de lo contrario siga leyendo.
+        Le ha sido otorgada una cuenta de usuario con la cual podr&aacute; hacer uso del sistema
+        <strong><a href="http://www.angelzimbron15.esy.es">"Tu espacio &Aacute;ngel Zimbr&oacute;n"</a></strong>
+    </p>
+    <p>
+        Sus datos de acceso son los siguientes:
     </p>
 
     <p align="justify">
-        De click en el siguiente enlace para cambiar su contraseña: <a href="{{ $link = url('password/reset', $token).'?email='.urlencode($user->getEmailForPasswordReset()) }}"> "Tu espacio &Aacute;ngel Zimbr&oacute;n" cambio de contraseña </a>
+        <strong>Correo electr&oacute;nico: </strong> {{$email}}</strong>
+        <br/>
+        <strong>Contrase&ntilde;a: </strong>{{$contrasenhaDes}}</strong>
+    </p>
+
+    <p align="justify">
+        Es importante recordar estos datos cada vez que desee hacer uso de nuestro sistema.
+    </p>
+    <p>
+        Cons&eacute;rvelos en un lugar seguro.
     </p>
 
     <p align="justify">
         <strong>Atentamente</strong>
         <br/>
-        <strong><a>Administraci&oacute;n "Tu espacio &Aacute;ngel Zimbr&oacute;n".</a></strong>
+        <strong><a href="http://www.angelzimbron15.esy.es">Administraci&oacute;n "Tu espacio &Aacute;ngel Zimbr&oacute;n".</a></strong>
     </p>
 </div>
 <div>

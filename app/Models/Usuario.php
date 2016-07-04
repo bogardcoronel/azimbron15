@@ -4,8 +4,16 @@ namespace azimbron15\Models;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class Usuario extends Authenticatable
+use Illuminate\Auth\Passwords\CanResetPassword;
+use Illuminate\Foundation\Auth\Access\Authorizable;
+use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
+use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
+use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
+
+class Usuario extends Authenticatable implements  AuthenticatableContract, AuthorizableContract, CanResetPasswordContract
 {
+    use  Authorizable, CanResetPassword;
+
     protected $table = 'usuarios';
     protected $fillable = array('nombre', 'email', 'contrasenha', 'condominio_id','created_at', 'updated_at');
 
@@ -15,7 +23,7 @@ class Usuario extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'contrasenha',
+        'contrasenha','remember_token',
     ];
 
     public function getAuthPassword(){

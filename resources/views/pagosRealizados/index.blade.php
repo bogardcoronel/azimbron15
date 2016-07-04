@@ -2,6 +2,9 @@
 
 @section('content')
     <link rel="stylesheet" href="../css/lytebox.css">
+    @if(Session::has('success'))
+        <div class="alert alert-success">{{ Session('success') }}</div>
+    @endif
     <div class="container">
         <h1>Pagos realizados</h1>
         <div class="row">
@@ -40,12 +43,12 @@
                             Estatus del pago
                     </th>
                     <th>
-                        Concepto
+                        Comentarios del administrador
                     </th>
 </thead>
 @foreach($pagosRealizados as $pago)
    <tbody>
-   <td>{{$pago->condominio->departamento}}</td>
+   <td> <a href="../pagosRealizados/{{$pago->id}}/show" >{{$pago->condominio->departamento}}</a></td>
    <td>
        <ul class="list-group">
    @foreach($pago->pagosConceptos as $pagoConcepto)
@@ -64,23 +67,29 @@
    </td>
 
 
-       @if (Auth::user()->is("Administrador")&& $pago->estatus->id==2)
+       @if (Auth::user()->is("Administrador"))
            <td>
+               @if ($pago->estatus->id == 2)
            <ul class="list-group">
                <li class="list-group-item-success">
-                   <a href="#"><i class="fa fa-btn fa-thumbs-o-up"></i> Aprobar pago</a>
+                   <a href="../pagosRealizados/{{$pago->id}}/approve"><i class="fa fa-btn fa-thumbs-o-up"></i> Aprobar pago</a>
                </li>
                <li class="list-group-item-warning">
                    <a href="#"><i class="fa fa-btn fa-hand-stop-o"></i> Rechazar pago</a>
                </li>
            </ul>
-           @if ($pago->estatus->id==3)
+           @elseif($pago->estatus->id == 1)
                <a href="#">Pago aceptado</a>
            @endif
                </td>
        @endif
            <td>
    <a href="#">{{$pago->estatus->estatus_descripcion}}</a>
+               @if (Auth::user()->is("Condomino"))
+                   @if ($pago->estatus->id == 3)
+                       <a href="#"><i class="fa fa-btn fa-hand-stop-o"></i>Da click aquí para realizar aclaración</a>
+                   @endif
+               @endif
    </td>
    <td>{{$pago->comentarios}}</td>
 
