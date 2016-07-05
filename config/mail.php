@@ -55,7 +55,7 @@ return [
     |
     */
 
-    'from' => ['address' => "no-reply@angelzimbron15.esy.es", 'name' => "Administración Ángel Zimbrón"],
+    'from' => ['address' => null, 'name' => null],
 
     /*
     |--------------------------------------------------------------------------
