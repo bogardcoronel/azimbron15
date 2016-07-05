@@ -27,7 +27,6 @@
     </style>
 </head>
 <body id="app-layout">
-<?php echo public_path();?>
     <nav class="navbar navbar-default navbar-static-top">
         <div class="container">
             <div class="navbar-header">
