@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 
 use azimbron15\Http\Requests;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
@@ -62,7 +63,7 @@ class UsuarioController extends Controller
             'created_at' => Carbon::now()
         ]);
 
-        UsuarioCreadoEvent::fire(Usuario::where('email', 1)->first());
+        Event::fire(new UsuarioCreadoEvent(Usuario::where('email', $request->input('email'))->first(),$request->input('password')));
 
         \Session::flash('success','Usuario creado exitosamente.');
         
