@@ -1,4 +1,4 @@
-<?php
+/<?php
 
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
@@ -17,12 +17,13 @@ class CreatePagosTable extends Migration
             $table->string('concepto', 50);
             $table->timestamp('fecha_limite_pago')->nullable();
             $table->decimal('cantidad', 5, 2);
+            $table->tinyInteger('opcional');
             $table->timestamps();
         });
     }
 
     /**
-     * Reverse the migrations.
+ *    * Reverse the migrations.
      *
      * @return void
      */

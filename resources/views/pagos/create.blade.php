@@ -54,20 +54,32 @@
                                 @endif
                             </div>
                         </div>
-</div>
-                        </div>
 
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="fa fa-btn fa-database"></i> Crear
-                                </button>
+                        <div class="form-group{{ $errors->has('opcional') ? ' has-error' : '' }}">
+                            {!! Form::label('opcional', 'Es pago opcional?',['class'=>'col-md-4 control-label'])!!}
+                            <div class="col-md-6">
+                                {!! Form::checkbox('opcional', null, false)!!}
+                                @if ($errors->has('opcional'))
+                                    <span class="help-block">
+                                       <strong>{{ $errors->first('opcional') }}</strong>
+                                   </span>
+                                @endif
                             </div>
                         </div>
-                        {!! Form::close() !!}
                     </div>
                 </div>
+
+                <div class="form-group">
+                    <div class="col-md-6 col-md-offset-4">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fa fa-btn fa-database"></i> Crear
+                        </button>
+                    </div>
+                </div>
+                {!! Form::close() !!}
             </div>
         </div>
+    </div>
+    </div>
     </div>
 @endsection

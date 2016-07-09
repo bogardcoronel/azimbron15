@@ -2,6 +2,7 @@
 
 namespace azimbron15\Http\Controllers;
 
+use azimbron15\Events\PagoAprobadoEvent;
 use azimbron15\Events\PagoRealizadoEvent;
 use azimbron15\Models\Estatus;
 use azimbron15\Models\Evidencia;
@@ -125,6 +126,10 @@ class PagoRealizadoController extends Controller
         $pagoRealizado->estatus_id =$estatus->id;
         $pagoRealizado->save();
         \Session::flash('success','El pago del departamento '.$pagoRealizado->condominio->departamento.' con fecha  de pago '.Date::parse($pagoRealizado->fecha_de_pago)->format('l j F Y') .' ha sido aprobado.');
+
+        //Dispara un evento al aprobar el pago
+        Event::fire(new PagoAprobadoEvent($pagoRealizado));
+        
         return Redirect::to('pagosRealizados/index');
     }
 

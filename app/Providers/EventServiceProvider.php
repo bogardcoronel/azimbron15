@@ -19,6 +19,12 @@ class EventServiceProvider extends ServiceProvider
         'azimbron15\Events\UsuarioCreadoEvent' => [
             'azimbron15\Listeners\NotificarUsuarioCreado',
         ],
+        'azimbron15\Events\PagoAprobadoEvent' => [
+            'azimbron15\Listeners\NotificarPagoAprobado',
+        ],
+        'azimbron15\Events\CambioPasswordEvent' => [
+            'azimbron15\Listeners\NotificarCambioPassword',
+        ],
     ];
 
     /**

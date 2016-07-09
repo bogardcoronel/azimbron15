@@ -33,6 +33,7 @@ Route::get('usuarios/index', 'UsuarioController@index');
 Route::get('usuarios/create', 'UsuarioController@create');
 Route::post('usuarios/store', 'UsuarioController@store');
 Route::get('pagosPendientes/index', 'PagoPendienteController@index');
+Route::get('pagosPendientes/pagoPendienteDeptos', 'PagoPendienteController@pagoPendienteDeptos');
 Route::get('pagosRealizados/index', 'PagoRealizadoController@index');
 Route::get('pagosRealizados/create', 'PagoRealizadoController@create');
 Route::get('pagosRealizados/{id}/show', 'PagoRealizadoController@show');

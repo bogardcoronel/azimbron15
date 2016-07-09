@@ -49,7 +49,7 @@ class PagosController extends Controller
         $rules = [
             'concepto' => 'required|min:5',
             'cantidad' => 'required|digits_between:1,6',
-            'fecha_limite_pago' => 'required|date_format:d/m/Y',
+            'fecha_limite_pago' => 'required|date_format:d/m/Y'
         ];
 
         $input = Input::only(
@@ -69,6 +69,7 @@ class PagosController extends Controller
                 'concepto' => $request->input('concepto'),
                 'cantidad' => $request->input('cantidad'),
                 'fecha_limite_pago' => Carbon::createFromFormat('d/m/Y', $request->input('fecha_limite_pago')),
+                'opcional' => $request->input('opcional')?true:false,
                 'created_at' => Carbon::now()
             ]);
 

@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Pagos extends Model
 {
     protected $table = 'pagos';
-    protected $fillable = array('concepto', 'fecha_limite_pago', 'cantidad','created_at', 'updated_at');
+    protected $fillable = array('concepto', 'fecha_limite_pago', 'cantidad', 'opcional','created_at', 'updated_at');
+    protected $guarded = ['depto'];
 
     public function pagosConceptos(){
         return $this->belongsToMany('azimbron15\Models\PagoRealizado', 'pagos_conceptos', 'pagos_id','pagos_realizados_id');

@@ -2,11 +2,13 @@
 
 namespace azimbron15\Http\Controllers\Auth;
 
+use azimbron15\Events\CambioPasswordEvent;
 use azimbron15\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ResetsPasswords;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Auth\Guard;
 use Illuminate\Auth\Passwords\PasswordBroker;
+use Illuminate\Support\Facades\Event;
 use Illuminate\Support\Facades\Hash;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -121,6 +123,9 @@ class PasswordController extends Controller
 
             $user->save();
 
+            //Dispara un evento al cambiar password
+            Event::fire(new CambioPasswordEvent($user,$password));
+            
             $this->auth->login($user);
         });
 
