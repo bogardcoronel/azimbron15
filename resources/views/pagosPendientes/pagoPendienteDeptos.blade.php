@@ -29,7 +29,7 @@
         } );
     </script>
     <div class="container">
-        <h1>Pagos pendientes</h1>
+        <h1>Pagos pendientes de todos los departamentos</h1>
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
                 <table id="tablaPagosPendientes" class="display">

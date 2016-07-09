@@ -53,7 +53,7 @@
     </p>
 
     <p align="justify">
-        Para aprobar o solicitar aclaración del pago, es necesario acceder al sistema <strong><a href="http://www.angelzimbron15.esy.es/pagosRealizados/{{$id}}/show">"Tu espacio &Aacute;ngel Zimbr&oacute;n".</a></strong>.
+        Para aprobar o solicitar aclaración del pago, es necesario acceder al sistema <strong><a href="{{ $link = url('/pagosRealizados/'.$id.'/show')}}">"Tu espacio &Aacute;ngel Zimbr&oacute;n".</a></strong>.
     </p>
 
 </div>

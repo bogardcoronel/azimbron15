@@ -40,7 +40,7 @@
     </p>
     <p align="justify">
         Le ha sido otorgada una cuenta de usuario con la cual podr&aacute; hacer uso del sistema
-        <strong><a href="http://www.angelzimbron15.esy.es">"Tu espacio &Aacute;ngel Zimbr&oacute;n"</a></strong>
+        <strong><a href="{{ $link = url('/')}}">"Tu espacio &Aacute;ngel Zimbr&oacute;n"</a></strong>
     </p>
     <p>
         Sus datos de acceso son los siguientes:
@@ -62,7 +62,7 @@
     <p align="justify">
         <strong>Atentamente</strong>
         <br/>
-        <strong><a href="http://www.angelzimbron15.esy.es">Administraci&oacute;n "Tu espacio &Aacute;ngel Zimbr&oacute;n".</a></strong>
+        <strong><a href="{{ $link = url('/')}}")>Administraci&oacute;n "Tu espacio &Aacute;ngel Zimbr&oacute;n".</a></strong>
     </p>
 </div>
 <div>

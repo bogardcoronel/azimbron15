@@ -8,7 +8,11 @@
                 <div class="panel-heading">Bienvenido</div>
 
                 <div class="panel-body">
-                    Tu aplicación se encuentra lista.
+                    Bienvenido al sistema "Tu espacio Ángel Zimbrón".  @if (Auth::guest()) <strong> <a href="{{ url('/login') }}">comienza aquí</a></strong>
+                    @else
+                    <br/>
+                        Empieza a explorar ahora tu sistema dando click en alguna opción del menú.
+                    @endif
                 </div>
             </div>
         </div>

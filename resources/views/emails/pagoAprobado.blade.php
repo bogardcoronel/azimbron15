@@ -59,7 +59,7 @@
     <p align="justify">
         <strong>Atentamente</strong>
         <br/>
-        <strong><a href="http://www.angelzimbron15.esy.es">Administraci&oacute;n "Tu espacio &Aacute;ngel Zimbr&oacute;n".</a></strong>
+        <strong><a href="{{ $link = url('/')}}">Administraci&oacute;n "Tu espacio &Aacute;ngel Zimbr&oacute;n".</a></strong>
     </p>
 
 </div>
