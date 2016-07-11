@@ -6,6 +6,7 @@ use azimbron15\Events\CambioPasswordEvent;
 use azimbron15\Models\Usuario;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Support\Facades\Mail;
 
 class NotificarCambioPassword
 {

@@ -6,6 +6,7 @@ use azimbron15\Events\PagoAprobadoEvent;
 use azimbron15\Models\PagoRealizado;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 
 class NotificarPagoAprobado
@@ -42,7 +43,7 @@ class NotificarPagoAprobado
             ->leftJoin('pagos_realizados', 'condominios.id', '=', 'pagos_realizados.condominio_id')
             ->where('pagos_realizados.id', '=', $event->pagoRealizado->id)->first()->email;
 
-        Mail::send('emails.pagoRealizado', $pagoRealizado, function ($message) use ($pagoRealizado){
+        Mail::send('emails.pagoAprobado', $pagoRealizado, function ($message) use ($pagoRealizado){
 
             $message->from('no-reply@angelzimbron15.esy.es', 'Pago realizado');
 
